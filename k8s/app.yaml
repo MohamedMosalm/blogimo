@@ -19,6 +19,10 @@ spec:
             - { name: DB_URL, value: "jdbc:postgresql://postgres:5432/blogimo" }
             - { name: DB_USER, value: postgres }
             - { name: DB_PASSWORD, value: postgres }
+            - { name: REDIS_HOST, value: redis }
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef: { name: blogimo-jwt, key: secret }
 ---
 apiVersion: v1
 kind: Service
