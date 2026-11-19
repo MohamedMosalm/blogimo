@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogimo
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: blogimo }
+  template:
+    metadata:
+      labels: { app: blogimo }
+    spec:
+      containers:
+        - name: blogimo
+          image: docker.io/mohamedmosalm/blogimo:0
+          ports:
+            - containerPort: 8080
+          env:
+            - { name: DB_URL, value: "jdbc:postgresql://postgres:5432/blogimo" }
+            - { name: DB_USER, value: postgres }
+            - { name: DB_PASSWORD, value: postgres }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blogimo
+spec:
+  selector: { app: blogimo }
+  ports:
+    - port: 8080
