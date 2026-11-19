@@ -19,7 +19,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Post> posts = new ArrayList<>();
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 

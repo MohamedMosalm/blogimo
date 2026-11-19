@@ -36,7 +36,7 @@ public class User {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 

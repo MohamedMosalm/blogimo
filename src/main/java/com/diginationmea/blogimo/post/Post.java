@@ -21,13 +21,6 @@ public class Post {
     @Column(nullable = false, columnDefinition = "text")
     private String content;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PostStatus status = PostStatus.DRAFT;
-
-    @Column(nullable = false)
-    private int readingTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
@@ -61,22 +54,6 @@ public class Post {
 
     void setContent(String content) {
         this.content = content;
-    }
-
-    PostStatus getStatus() {
-        return status;
-    }
-
-    void setStatus(PostStatus status) {
-        this.status = status;
-    }
-
-    int getReadingTime() {
-        return readingTime;
-    }
-
-    void setReadingTime(int readingTime) {
-        this.readingTime = readingTime;
     }
 
     User getAuthor() {
