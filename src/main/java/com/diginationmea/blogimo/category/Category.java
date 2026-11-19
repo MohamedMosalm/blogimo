@@ -1,9 +1,13 @@
 package com.diginationmea.blogimo.category;
 
+import com.diginationmea.blogimo.post.Post;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-class Category {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +15,9 @@ class Category {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Post> posts = new ArrayList<>();
 
     Long getId() {
         return id;
@@ -22,5 +29,9 @@ class Category {
 
     void setName(String name) {
         this.name = name;
+    }
+
+    List<Post> getPosts() {
+        return posts;
     }
 }

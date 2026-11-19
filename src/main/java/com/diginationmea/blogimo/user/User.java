@@ -1,14 +1,17 @@
 package com.diginationmea.blogimo.user;
 
+import com.diginationmea.blogimo.post.Post;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +25,9 @@ class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -52,6 +58,10 @@ class User {
 
     void setPassword(String password) {
         this.password = password;
+    }
+
+    List<Post> getPosts() {
+        return posts;
     }
 
     Instant getCreatedAt() {

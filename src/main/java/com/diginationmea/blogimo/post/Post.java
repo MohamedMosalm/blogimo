@@ -1,5 +1,7 @@
 package com.diginationmea.blogimo.post;
 
+import com.diginationmea.blogimo.category.Category;
+import com.diginationmea.blogimo.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -7,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 
 @Entity
-class Post {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,14 @@ class Post {
 
     @Column(nullable = false)
     private int readingTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -67,6 +77,22 @@ class Post {
 
     void setReadingTime(int readingTime) {
         this.readingTime = readingTime;
+    }
+
+    User getAuthor() {
+        return author;
+    }
+
+    void setAuthor(User author) {
+        this.author = author;
+    }
+
+    Category getCategory() {
+        return category;
+    }
+
+    void setCategory(Category category) {
+        this.category = category;
     }
 
     Instant getCreatedAt() {
